@@ -1,0 +1,294 @@
+<!-- =========================
+  File: pricing.html
+  Purpose: Pricing page wired to work with hash tabs and relative links
+========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LoLa-PC — Pricing</title>
+<style>
+  :root{
+    --bg:#0f1220; --panel:#14182a; --card:#171b31; --text:#e8ecff; --muted:#aeb7d6;
+    --brand:#5b8cff; --accent:#7bdba9; --border:#23284a; --shadow:0 14px 36px rgba(0,0,0,.36);
+    --radius:16px; --maxw:1200px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+  .container{max-width:var(--maxw);margin:0 auto;padding:20px}
+  .head{text-align:center;margin:12px 0 18px}
+  .head h1{margin:0 0 8px;font-size:clamp(28px,4.5vw,42px)}
+  .head p{margin:0;color:var(--muted)}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;margin:22px 0 16px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tab-btn{padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:transparent;color:var(--muted);font-weight:800;cursor:pointer}
+  .tab-btn.active{background:var(--panel);color:var(--text);border-color:var(--brand)}
+  .right-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .pill{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:6px 10px;color:var(--muted)}
+  .pill select,.pill input{background:transparent;border:0;color:var(--text);font-weight:700;outline:none}
+  .pill label{font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:#b8c1ea}
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media (max-width: 980px){ .plans{grid-template-columns:1fr} }
+  .card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;min-height:320px}
+  .ribbon{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#ffd26a,#ffb24d);color:#2b1c00;font-size:12px;font-weight:900;padding:4px 10px;border-radius:8px}
+  .title{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .title h3{margin:0;font-size:20px}
+  .chip{font-size:12px;font-weight:900;text-transform:uppercase;background:#1c2140;border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:#a8b4e5}
+  .desc{margin:0;color:var(--muted)}
+  .specs{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 0}
+  .spec{background:#1b2140;border:1px solid var(--border);color:#b9c3ee;padding:6px 10px;border-radius:10px;font-size:12px;font-weight:800}
+  .bullets{margin:2px 0 0;padding-left:18px}
+  .bullets li{color:var(--muted);margin:6px 0;font-size:14px}
+  .band{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#111739;border:1px solid var(--border);border-radius:12px;padding:10px 12px}
+  .price{font-weight:900}
+  .note{font-size:12px;color:#b9c3ee}
+  .cta-row{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+  .btn{flex:1;text-align:center;padding:12px;border-radius:12px;font-weight:900;text-decoration:none;border:1px solid transparent}
+  .btn-primary{background:var(--brand);color:#0b0f1d}
+  .btn-outline{background:transparent;border-color:var(--border);color:var(--text)}
+  .btn:hover{filter:brightness(1.07)}
+  .row-2{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:18px}
+  @media (max-width: 980px){ .row-2{grid-template-columns:1fr} }
+  .faq{margin:28px 0}
+  .final{margin:36px 0 20px;text-align:center}
+  .final .btn{display:inline-block;min-width:220px}
+  /* Simple top bar for nav between pages */
+  .topbar{position:sticky;top:0;background:rgba(15,18,32,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:10}
+  .topwrap{max-width:var(--maxw);margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+  .brand{display:flex;align-items:center;gap:8px;color:var(--text)}
+  .badge{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),#86a9ff);font-weight:900;color:#0b0f1d}
+  .topnav{margin-left:auto;display:flex;gap:10px}
+  .topnav a{color:var(--muted);padding:8px 10px;border-radius:8px}
+  .topnav a:hover{background:#1b2140;color:var(--text)}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topwrap">
+    <a class="brand" href="index.html"><div class="badge">Lo</div><strong>LoLa-PC</strong></a>
+    <nav class="topnav">
+      <a href="#professionals">Professionals</a>
+      <a href="#creators">Creators</a>
+      <a href="#gaming">Gaming</a>
+      <a href="#payg">PAYG</a>
+      <a href="index.html#how">How It Works</a>
+    </nav>
+  </div>
+</div>
+
+<main class="container">
+  <div class="head">
+    <h1>Choose your Cloud PC</h1>
+    <p>Start <strong>hourly</strong> from <strong>£0.99/hr</strong> or pick a <strong>monthly</strong> plan for Professionals, Creators, or Gaming.</p>
+  </div>
+
+  <div class="controls">
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="professionals" role="tab" aria-selected="true">Professionals</button>
+      <button class="tab-btn" data-tab="creators" role="tab" aria-selected="false">Creators</button>
+      <button class="tab-btn" data-tab="gaming" role="tab" aria-selected="false">Gaming</button>
+      <button class="tab-btn" data-tab="payg" role="tab" aria-selected="false">PAYG</button>
+    </div>
+    <div class="right-controls">
+      <div class="pill" aria-label="Billing"><label>Billing</label><select id="billing"><option value="monthly" selected>Monthly</option><option value="hourly">Hourly</option></select></div>
+      <div class="pill" aria-label="Region"><label>Region</label><select id="region"><option value="uk" selected>UK</option><option value="eu">EU</option><option value="us">USA</option></select></div>
+    </div>
+  </div>
+
+  <!-- TABS: Professionals -->
+  <section id="professionals" class="tab" role="tabpanel">
+    <div class="plans">
+      <article class="card" data-plan="pro_standard" data-monthly="31.99" data-hourly="0.99" data-segment="professionals">
+        <div class="title"><h3>Pro Standard</h3><span class="chip">Professionals</span></div>
+        <p class="desc">Secure business desktops for everyday work.</p>
+        <div class="specs"><span class="spec">8 vCPU</span><span class="spec">16 GB RAM</span><span class="spec">CPU only</span><span class="spec">NVMe</span></div>
+        <ul class="bullets"><li>M365, CRM, browsers</li><li>Data stays in cloud</li><li>Great for remote teams</li></ul>
+        <div class="band"><div class="price">£31.99 / mo</div><div class="note">Low-latency • Managed</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Continue</a><a class="btn btn-outline details" href="#details-pro-standard">Details</a></div>
+      </article>
+      <article class="card" data-plan="pro_advanced" data-monthly="39.99" data-hourly="0.99" data-segment="professionals">
+        <div class="ribbon">Recommended</div>
+        <div class="title"><h3>Pro Advanced</h3><span class="chip">Professionals</span></div>
+        <p class="desc">Heavier multitasking and larger datasets.</p>
+        <div class="specs"><span class="spec">12 vCPU</span><span class="spec">24 GB RAM</span><span class="spec">CPU only</span><span class="spec">NVMe+</span></div>
+        <ul class="bullets"><li>Multiple apps & tabs</li><li>Faster I/O throughput</li><li>Admin controls</li></ul>
+        <div class="band"><div class="price">£39.99 / mo</div><div class="note">UK/EU regions</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Continue</a><a class="btn btn-outline details" href="#details-pro-advanced">Details</a></div>
+      </article>
+      <article class="card" data-plan="pro_max" data-monthly="49.99" data-hourly="0.99" data-segment="professionals">
+        <div class="title"><h3>Pro Max</h3><span class="chip">Professionals</span></div>
+        <p class="desc">Power users & light analytics workloads.</p>
+        <div class="specs"><span class="spec">16 vCPU</span><span class="spec">32 GB RAM</span><span class="spec">CPU only</span><span class="spec">NVMe+</span></div>
+        <ul class="bullets"><li>Large spreadsheets</li><li>Batch ops & imports</li><li>Stronger performance</li></ul>
+        <div class="band"><div class="price">£49.99 / mo</div><div class="note">Priority compute</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Continue</a><a class="btn btn-outline details" href="#details-pro-max">Details</a></div>
+      </article>
+    </div>
+    <div class="row-2">
+      <article class="card" data-plan="payg" data-monthly="0.00" data-hourly="0.99" data-segment="payg">
+        <div class="title"><h3>Pay As You Go</h3><span class="chip">On-Demand</span></div>
+        <p class="desc">Spin up a Cloud PC only when you need it.</p>
+        <div class="specs"><span class="spec">£0.99 / hour</span><span class="spec">Any segment</span><span class="spec">Quick start</span></div>
+        <ul class="bullets"><li>Perfect for bursts & testing</li><li>No commitment</li><li>Stop paying when idle</li></ul>
+        <div class="band"><div class="price">£0.99 / hr</div><div class="note">Start in minutes</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Start PAYG</a><a class="btn btn-outline details" href="#details-payg">How it works</a></div>
+      </article>
+      <article class="card">
+        <div class="title"><h3>Custom & Teams</h3><span class="chip">Contact</span></div>
+        <p class="desc">Larger deployments, specific apps, private networking, or bespoke SLAs.</p>
+        <div class="specs"><span class="spec">Bulk seats</span><span class="spec">Custom regions</span><span class="spec">Security reviews</span></div>
+        <ul class="bullets"><li>Migrate from VDI / on-prem</li><li>SSO, policy & device posture</li><li>Rollout & training support</li></ul>
+        <div class="band"><div class="price">Talk to sales</div><div class="note">Response within 1 business day</div></div>
+        <div class="cta-row"><a class="btn btn-primary" href="#">Contact Sales</a><a class="btn btn-outline" href="index.html#segments">View solutions</a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Creators -->
+  <section id="creators" class="tab" hidden role="tabpanel">
+    <div class="plans">
+      <article class="card" data-plan="creator_rtx_basic" data-monthly="27.99" data-hourly="0.99" data-segment="creators">
+        <div class="title"><h3>RTX Basic</h3><span class="chip">Creators</span></div>
+        <p class="desc">Photo work & light video edits.</p>
+        <div class="specs"><span class="spec">12 vCPU</span><span class="spec">24 GB RAM</span><span class="spec">RTX (entry VRAM)</span><span class="spec">NVMe</span></div>
+        <ul class="bullets"><li>Photo & motion graphics</li><li>Short timelines</li><li>On-the-go edits</li></ul>
+        <div class="band"><div class="price">£27.99 / mo</div><div class="note">UK/EU regions</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Continue</a><a class="btn btn-outline details" href="#details-creator-basic">Details</a></div>
+      </article>
+      <article class="card" data-plan="creator_rtx_advanced" data-monthly="31.99" data-hourly="0.99" data-segment="creators">
+        <div class="ribbon">Most Popular</div>
+        <div class="title"><h3>RTX Advanced</h3><span class="chip">Creators</span></div>
+        <p class="desc">4K timelines, color work, Blender.</p>
+        <div class="specs"><span class="spec">16 vCPU</span><span class="spec">32 GB RAM</span><span class="spec">RTX (higher VRAM)</span><span class="spec">NVMe+</span></div>
+        <ul class="bullets"><li>Heavier renders</li><li>Multi-app workflows</li><li>Team projects</li></ul>
+        <div class="band"><div class="price">£31.99 / mo</div><div class="note">Priority compute</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Continue</a><a class="btn btn-outline details" href="#details-creator-advanced">Details</a></div>
+      </article>
+      <article class="card" data-plan="creator_rtx_studio" data-monthly="39.99" data-hourly="0.99" data-segment="creators">
+        <div class="title"><h3>RTX Studio</h3><span class="chip">Creators</span></div>
+        <p class="desc">Demanding 3D, VFX & multi-node work.</p>
+        <div class="specs"><span class="spec">16+ vCPU</span><span class="spec">32+ GB RAM</span><span class="spec">RTX (high VRAM)</span><span class="spec">NVMe++</span></div>
+        <ul class="bullets"><li>Large scenes</li><li>Batch renders</li><li>Highest GPU class</li></ul>
+        <div class="band"><div class="price">£39.99 / mo</div><div class="note">Performance tier</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Continue</a><a class="btn btn-outline details" href="#details-creator-studio">Details</a></div>
+      </article>
+    </div>
+    <div class="row-2">
+      <article class="card" data-plan="payg" data-monthly="0.00" data-hourly="0.99" data-segment="payg">
+        <div class="title"><h3>Pay As You Go</h3><span class="chip">On-Demand</span></div>
+        <p class="desc">Only pay when you’re rendering or editing.</p>
+        <div class="specs"><span class="spec">£0.99 / hour</span><span class="spec">Any segment</span><span class="spec">Quick start</span></div>
+        <ul class="bullets"><li>Spike capacity</li><li>No commitment</li><li>Great for freelancers</li></ul>
+        <div class="band"><div class="price">£0.99 / hr</div><div class="note">Start in minutes</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Start PAYG</a><a class="btn btn-outline" href="#details-payg">How it works</a></div>
+      </article>
+      <article class="card">
+        <div class="title"><h3>Custom & Teams</h3><span class="chip">Contact</span></div>
+        <p class="desc">Large studios, storage needs, private networking.</p>
+        <div class="specs"><span class="spec">Bespoke GPU</span><span class="spec">Shared asset stores</span><span class="spec">SLAs</span></div>
+        <ul class="bullets"><li>Burst render farms</li><li>Team admin & SSO</li><li>Migration support</li></ul>
+        <div class="band"><div class="price">Talk to sales</div><div class="note">Tailored packages</div></div>
+        <div class="cta-row"><a class="btn btn-primary" href="#">Contact Sales</a><a class="btn btn-outline" href="index.html#segments">Creator solutions</a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Gaming -->
+  <section id="gaming" class="tab" hidden role="tabpanel">
+    <div class="plans">
+      <article class="card" data-plan="gaming_rtx_basic" data-monthly="27.99" data-hourly="0.99" data-segment="gaming">
+        <div class="title"><h3>RTX Basic</h3><span class="chip">Gaming</span></div>
+        <p class="desc">Smooth 1080p on popular titles.</p>
+        <div class="specs"><span class="spec">12 vCPU</span><span class="spec">24 GB RAM</span><span class="spec">RTX</span><span class="spec">Low-latency</span></div>
+        <ul class="bullets"><li>Steam/Epic libraries</li><li>Controller friendly</li><li>Quick launch</li></ul>
+        <div class="band"><div class="price">£27.99 / mo</div><div class="note">UK/EU regions</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Continue</a><a class="btn btn-outline" href="#details-gaming-basic">Details</a></div>
+      </article>
+      <article class="card" data-plan="gaming_rtx_pro" data-monthly="32.99" data-hourly="0.99" data-segment="gaming">
+        <div class="ribbon">Recommended</div>
+        <div class="title"><h3>RTX Pro</h3><span class="chip">Gaming</span></div>
+        <p class="desc">AAA at higher settings & FPS.</p>
+        <div class="specs"><span class="spec">16 vCPU</span><span class="spec">32 GB RAM</span><span class="spec">RTX</span><span class="spec">Low-latency</span></div>
+        <ul class="bullets"><li>1080p–1440p</li><li>Competitive feel</li><li>Consistent streams</li></ul>
+        <div class="band"><div class="price">£32.99 / mo</div><div class="note">Priority instances</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Continue</a><a class="btn btn-outline" href="#details-gaming-pro">Details</a></div>
+      </article>
+      <article class="card" data-plan="gaming_rtx_ultra" data-monthly="39.99" data-hourly="0.99" data-segment="gaming">
+        <div class="title"><h3>RTX Ultra</h3><span class="chip">Gaming</span></div>
+        <p class="desc">Enthusiast setup & highest fidelity.</p>
+        <div class="specs"><span class="spec">16+ vCPU</span><span class="spec">32+ GB RAM</span><span class="spec">RTX</span><span class="spec">Bandwidth boost</span></div>
+        <ul class="bullets"><li>Max settings</li><li>Streaming & capture</li><li>Top consistency</li></ul>
+        <div class="band"><div class="price">£39.99 / mo</div><div class="note">Best visuals</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Continue</a><a class="btn btn-outline" href="#details-gaming-ultra">Details</a></div>
+      </article>
+    </div>
+    <div class="row-2">
+      <article class="card" data-plan="payg" data-monthly="0.00" data-hourly="0.99" data-segment="payg">
+        <div class="title"><h3>Pay As You Go</h3><span class="chip">On-Demand</span></div>
+        <p class="desc">Play when you want, only pay then.</p>
+        <div class="specs"><span class="spec">£0.99 / hour</span><span class="spec">Any segment</span><span class="spec">Quick start</span></div>
+        <ul class="bullets"><li>No commitment</li><li>Short sessions</li><li>Try before monthly</li></ul>
+        <div class="band"><div class="price">£0.99 / hr</div><div class="note">Start in minutes</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Start PAYG</a><a class="btn btn-outline" href="#details-payg">How it works</a></div>
+      </article>
+      <article class="card">
+        <div class="title"><h3>Tournaments & Setups</h3><span class="chip">Contact</span></div>
+        <p class="desc">Events, LAN alternatives, or bulk gaming seats.</p>
+        <div class="specs"><span class="spec">Bulk seats</span><span class="spec">Pre-loads</span><span class="spec">Support</span></div>
+        <ul class="bullets"><li>Venue networking</li><li>Support & SLAs</li><li>Custom configs</li></ul>
+        <div class="band"><div class="price">Talk to sales</div><div class="note">Tailored quote</div></div>
+        <div class="cta-row"><a class="btn btn-primary" href="#">Contact Sales</a><a class="btn btn-outline" href="index.html#segments">Gaming solutions</a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PAYG tab (standalone) -->
+  <section id="payg" class="tab" hidden role="tabpanel">
+    <div class="row-2">
+      <article class="card" data-plan="payg" data-monthly="0.00" data-hourly="0.99" data-segment="payg">
+        <div class="title"><h3>Pay As You Go</h3><span class="chip">On-Demand</span></div>
+        <p class="desc">Spin up a Cloud PC only while you need it—then stop.</p>
+        <div class="specs"><span class="spec">£0.99 / hour</span><span class="spec">Any segment</span><span class="spec">Quick start</span></div>
+        <ul class="bullets"><li>Great for bursts & trials</li><li>No commitments</li><li>Switch devices anytime</li></ul>
+        <div class="band"><div class="price">£0.99 / hr</div><div class="note">Start in minutes</div></div>
+        <div class="cta-row"><a class="btn btn-primary continue">Start PAYG</a><a class="btn btn-outline" href="#details-payg">How it works</a></div>
+      </article>
+      <article class="card">
+        <div class="title"><h3>Need guidance?</h3><span class="chip">Help</span></div>
+        <p class="desc">Not sure which plan fits? We’ll map your apps and workloads in minutes.</p>
+        <div class="specs"><span class="spec">Quick consult</span><span class="spec">No cost</span><span class="spec">Plan match</span></div>
+        <ul class="bullets"><li>App compatibility</li><li>Performance targets</li><li>Budget fit</li></ul>
+        <div class="band"><div class="price">Free consult</div><div class="note">Calendar link</div></div>
+        <div class="cta-row"><a class="btn btn-primary" href="#">Talk to us</a><a class="btn btn-outline" href="index.html#segments">View solutions</a></div>
+      </article>
+    </div>
+  </section>
+
+  <div class="final">
+    <a class="btn btn-primary" href="#payg" onclick="showTab('payg')">Start at £0.99/hr</a>
+    <a class="btn btn-outline" href="#professionals" onclick="showTab('professionals')">Choose a monthly plan</a>
+  </div>
+</main>
+
+<script>
+  // Tabs
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabs = document.querySelectorAll('.tab');
+  function showTab(id){ tabs.forEach(t => t.hidden = (t.id !== id)); tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === id)); location.hash = id; }
+  tabBtns.forEach(btn => btn.addEventListener('click', ()=> showTab(btn.dataset.tab)));
+  function initHash(){ const hash = (location.hash || '').replace('#',''); if(hash && document.getElementById(hash)) showTab(hash); else showTab('professionals'); }
+  window.addEventListener('hashchange', initHash); initHash();
+
+  // Billing + Region
+  const billingSel = document.getElementById('billing');
+  const regionSel  = document.getElementById('region');
+  function formatPrice(amount, period){ return `£${Number(amount).toFixed(2)} / ${period === 'hourly' ? 'hr' : 'mo'}`; }
+  function updatePrices(){ const period = billingSel.value; document.querySelectorAll('.card[data-plan]').forEach(card=>{ const monthly = parseFloat(card.dataset.monthly||0); const hourly = parseFloat(card.dataset.hourly||0.99); const priceEl = card.querySelector('.price'); if(!priceEl) return; const amount = (period==='hourly') ? hourly : monthly; priceEl.textContent = formatPrice(amount, period); }); }
+  function updateLinks(){ const period = billingSel.value; const region = regionSel.value; document.querySelectorAll('.card[data-plan]').forEach(card=>{ const plan = card.dataset.plan; const segment = card.dataset.segment; const btn = card.querySelector('.continue'); if(!btn) return; if(plan === 'payg'){ btn.setAttribute('href', `index.html#segments`); } else { btn.setAttribute('href', `index.html#segments`); } }); }
+  billingSel.addEventListener('change', ()=>{ updatePrices(); updateLinks(); });
+  regionSel.addEventListener('change',  updateLinks);
+  updatePrices(); updateLinks();
+</script>
+</body>
+</html>

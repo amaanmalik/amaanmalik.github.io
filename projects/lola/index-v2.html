@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LoLa-PC — Cloud PCs (Corporate Light)</title>
+<style>
+  /* ===== Theme tokens (extracted) ===== */
+  :root{
+    --blue:#0d6efd; --white:#ffffff; --light-grey-bg:#f6f7fb;
+    --bg-light: var(--light-grey-bg);
+    --text:#2f3c4e; --muted:#6b778c; --border:#e6e9ef; --radius:14px; --maxw:1200px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg-light);color:var(--text);
+    font-family:'Segoe UI',system-ui,Segoe UI,Roboto,Arial,sans-serif}
+
+  a{color:inherit;text-decoration:none}
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+  /* ===== Buttons (from your theme) ===== */
+  .theme-btn{
+    font-size:.9rem;font-weight:600;padding:.6rem 1.1rem;border-radius:999px;margin:.2rem;
+    border:1px solid var(--blue); background:var(--blue); color:#fff; transition:.2s
+  }
+  .theme-btn:hover{background:#0056b3;border-color:#0056b3}
+  .theme-btn-outline{
+    font-size:.9rem;font-weight:600;padding:.6rem 1.1rem;border-radius:999px;margin:.2rem;
+    border:1px solid var(--blue); background:transparent; color:var(--blue); transition:.2s
+  }
+  .theme-btn-outline:hover{background:var(--blue);color:#fff}
+
+  /* ===== Header / Mega-nav (light) ===== */
+  .header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--border)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .badge{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--blue),#5a9bff);font-weight:900;color:#fff}
+  .nav{display:flex;align-items:center;gap:8px;margin-left:8px}
+  .nav a,.nav button{color:#51607a;font-weight:700;padding:10px 12px;border-radius:8px;background:transparent;border:0}
+  .nav a:hover,.nav button:hover{background:#eef2f9;color:#1c2636}
+  .spacer{flex:1}
+  .login{color:#51607a;font-weight:700;padding:10px 12px;border-radius:8px}
+
+  /* Mega menu */
+  .dropdown{position:relative}
+  .menu{
+    position:absolute;left:0;top:48px;display:none;min-width:720px;
+    background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;
+    box-shadow:0 14px 34px rgba(18,24,40,.08)
+  }
+  .menu.open{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .col{background:#fafbff;border:1px solid var(--border);border-radius:12px;padding:12px}
+  .col h5{margin:0 0 8px;color:#62708a;font-size:12px;text-transform:uppercase;letter-spacing:.3px}
+  .link{display:flex;align-items:flex-start;gap:10px;padding:10px;border-radius:10px}
+  .link:hover{background:#eef2f9}
+  .ico{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:14px;color:#fff;font-weight:900;background:var(--blue)}
+  .sub{color:#6b778c;font-weight:600;margin-top:2px}
+  .menu-foot{grid-column:1 / -1;display:flex;justify-content:flex-end;padding-top:6px}
+  .menu-foot a{color:var(--blue);font-weight:700}
+
+  /* Mobile drawer */
+  .burger{display:none;border:1px solid var(--border);padding:8px 10px;border-radius:10px;background:#fff}
+  @media (max-width: 980px){ .nav,.login{display:none} .burger{display:inline-flex;margin-left:auto} }
+  .drawer{display:none;border-top:1px solid var(--border);background:#fff}
+  .drawer.open{display:block}
+  .group{padding:10px 16px}
+  .group h5{margin:10px 0 4px;color:#62708a;font-size:12px;text-transform:uppercase;letter-spacing:.3px}
+  .list a{display:flex;gap:10px;color:var(--text);padding:12px;border-radius:10px}
+  .list a:hover{background:#eef2f9}
+
+  /* ===== Sections ===== */
+  .hero{padding:68px 0 40px}
+  .hero-wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center}
+  .eyebrow{color:#0b66ff;font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:1.2px}
+  h1{font-size:clamp(34px,5vw,56px);margin:10px 0 10px;line-height:1.04}
+  .sub{color:var(--muted);font-size:clamp(16px,2.2vw,18px);margin:0 0 20px}
+  .hero-card{background:#ffffff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:0 10px 26px rgba(18,24,40,.06)}
+  .device-shot{border:1px solid var(--border);background:#f3f6fc;border-radius:12px;aspect-ratio:16/10;display:grid;place-items:center;color:#0b66ff;font-weight:700}
+  .tiny{font-size:13px;color:#6b778c;margin-top:10px}
+
+  .trust{padding:16px 0 28px}
+  .band{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;background:#ffffff;border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px}
+  .badge-chip{border:1px solid var(--border);padding:8px 12px;border-radius:999px;color:#51607a;font-size:13px;background:#fff}
+
+  .segments{padding:18px 0 8px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{background:#ffffff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:0 10px 26px rgba(18,24,40,.04);display:flex;flex-direction:column;gap:14px;min-height:260px}
+  .chip{display:inline-flex;align-items:center;gap:8px;background:#eef2f9;color:#0b66ff;border:1px solid var(--border);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.3px;text-transform:uppercase}
+  .price{font-weight:800}
+
+  .benefits{padding:32px 0 8px}
+  .benefit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .benefit{background:#ffffff;border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+
+  .hiw{padding:28px 0}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .step{background:#ffffff;border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+
+  footer{border-top:1px solid var(--border);padding:26px 0 60px;color:#6b778c}
+  .foot{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+  .foot h5{color:#1a2233;margin:0 0 10px}
+  .foot a{color:#51607a;font-size:14px}
+  .foot a:hover{color:#0b66ff}
+
+  @media (max-width: 960px){
+    .hero-wrap{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .benefit-grid{grid-template-columns:1fr 1fr}
+    .steps{grid-template-columns:1fr}
+    .foot{grid-template-columns:1fr}
+    .band{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="index-v2.html" aria-label="LoLa-PC Home"><div class="badge">Lo</div><span>LoLa-PC</span></a>
+
+    <nav class="nav" aria-label="Primary">
+      <div class="dropdown" id="dd">
+        <button id="ddBtn" aria-haspopup="true" aria-expanded="false">Solutions ▾</button>
+        <div class="menu" id="ddMenu" role="menu" aria-hidden="true">
+          <div class="col">
+            <h5>Segments</h5>
+            <a class="link" href="pricing-v2.html#professionals"><span class="ico">💼</span><div><strong>Professionals</strong><div class="sub">Secure desktops for teams & contractors</div></div></a>
+            <a class="link" href="pricing-v2.html#creators"><span class="ico">🎬</span><div><strong>Creators</strong><div class="sub">RTX power for editing & rendering</div></div></a>
+            <a class="link" href="pricing-v2.html#gaming"><span class="ico">🎮</span><div><strong>Gaming</strong><div class="sub">Low-latency Cloud PCs for play</div></div></a>
+          </div>
+          <div class="col">
+            <h5>Industries</h5>
+            <a class="link" href="pricing-v2.html#professionals"><span class="ico">🏗️</span><div><strong>Architecture & BIM</strong><div class="sub">Revit, AutoCAD, 3D modeling</div></div></a>
+            <a class="link" href="pricing-v2.html#professionals"><span class="ico">🏭</span><div><strong>Manufacturing & Eng</strong><div class="sub">CAD/CAM, vendor access</div></div></a>
+            <a class="link" href="pricing-v2.html#professionals"><span class="ico">🎓</span><div><strong>Education</strong><div class="sub">Digital labs, libraries</div></div></a>
+            <a class="link" href="pricing-v2.html#professionals"><span class="ico">🧩</span><div><strong>MSPs & IT Providers</strong><div class="sub">Resell & manage Cloud PCs</div></div></a>
+            <a class="link" href="pricing-v2.html#professionals"><span class="ico">🏛️</span><div><strong>Public Sector</strong><div class="sub">Councils, NHS admin</div></div></a>
+            <a class="link" href="pricing-v2.html#creators"><span class="ico">🎥</span><div><strong>Film/TV & Post</strong><div class="sub">Editing, VFX, remote teams</div></div></a>
+          </div>
+          <div class="menu-foot"><a href="pricing-v2.html">View all solutions & plans →</a></div>
+        </div>
+      </div>
+      <a href="pricing-v2.html">Pricing</a>
+      <a href="#how">How It Works</a>
+      <a href="#downloads">Downloads</a>
+    </nav>
+
+    <a class="login" href="#">Login</a>
+    <a class="theme-btn" href="pricing-v2.html#payg">Start Now</a>
+
+    <button class="burger" id="burger" aria-expanded="false">☰</button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="drawer" id="drawer" role="dialog" aria-label="Mobile Menu">
+    <div class="group">
+      <h5>Solutions</h5>
+      <div class="list">
+        <a href="pricing-v2.html#professionals">💼 Professionals</a>
+        <a href="pricing-v2.html#creators">🎬 Creators</a>
+        <a href="pricing-v2.html#gaming">🎮 Gaming</a>
+      </div>
+      <h5>Explore</h5>
+      <div class="list">
+        <a href="pricing-v2.html">Pricing</a>
+        <a href="#how">How It Works</a>
+        <a href="#downloads">Downloads</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-wrap">
+    <div>
+      <div class="eyebrow">Cloud PCs for Professionals, Creators & Gamers</div>
+      <h1>Your Windows PC. On any device. Anytime.</h1>
+      <p class="sub">Start in minutes from <strong>£0.99/hr</strong> or choose a monthly plan built for work, creation, or gaming.</p>
+      <div>
+        <a class="theme-btn" href="pricing-v2.html#payg">Start now for £0.99/hr</a>
+        <a class="theme-btn-outline" href="pricing-v2.html">See pricing</a>
+      </div>
+      <div class="tiny">Works on PC, Mac, tablet, and LoLa PC Hubs.</div>
+    </div>
+    <div class="hero-card" aria-hidden="true">
+      <div class="device-shot">Live Cloud PC preview<br/>16 vCPU • 32 GB • RTX</div>
+      <div class="tiny">Low-latency streaming • UK/EU regions • Enterprise-grade security</div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="container">
+    <div class="band">
+      <div><span class="badge-chip">Trusted by UK SMEs</span> <span class="badge-chip">Creators & Studios</span> <span class="badge-chip">Education & MSPs</span></div>
+      <div aria-label="App store badges"><span class="badge-chip">Android App</span> <span class="badge-chip">iOS App</span> <span class="badge-chip">Windows Client</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="segments" class="segments">
+  <div class="container">
+    <h2 style="margin:6px 0 14px;">Choose your path</h2>
+    <div class="cards">
+      <article class="card"><span class="chip">Professionals</span><h3>Secure Cloud PCs for business</h3><p>Managed desktops for teams that need power without the hardware.</p><p class="price">From <strong>£31.99 / mo</strong> or <strong>£0.99 / hr</strong></p><div style="margin-top:auto"></div><a class="theme-btn" href="pricing-v2.html#professionals">Continue</a> <a class="theme-btn-outline" href="pricing-v2.html">Compare plans</a></article>
+      <article class="card"><span class="chip">Creators</span><h3>RTX-powered for editing & rendering</h3><p>High-performance GPUs for Adobe, DaVinci, Blender and more.</p><p class="price">From <strong>£27.99 / mo</strong> or <strong>£0.99 / hr</strong></p><div style="margin-top:auto"></div><a class="theme-btn" href="pricing-v2.html#creators">Continue</a> <a class="theme-btn-outline" href="pricing-v2.html">Compare plans</a></article>
+      <article class="card"><span class="chip">Gaming</span><h3>Low-latency RTX Cloud PCs</h3><p>Stream your library from Steam, Epic, and more.</p><p class="price">From <strong>£27.99 / mo</strong> or <strong>£0.99 / hr</strong></p><div style="margin-top:auto"></div><a class="theme-btn" href="pricing-v2.html#gaming">Continue</a> <a class="theme-btn-outline" href="pricing-v2.html">Compare plans</a></article>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="hiw">
+  <div class="container">
+    <h2 style="margin:6px 0 14px;">How it works</h2>
+    <div class="steps">
+      <div class="step"><div style="font-weight:800">1</div><h4>Pick your plan</h4><p>Professionals, Creators, or Gaming — or start hourly for £0.99.</p></div>
+      <div class="step"><div style="font-weight:800">2</div><h4>Configure in seconds</h4><p>Select region and specs. We’ll spin up your Cloud PC automatically.</p></div>
+      <div class="step"><div style="font-weight:800">3</div><h4>Launch anywhere</h4><p>Run in browser or the app. Switch devices without losing progress.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer id="downloads">
+  <div class="container foot">
+    <div><h5>LoLa-PC</h5><p>Run powerful Windows Cloud PCs on any device.</p></div>
+    <div><h5>Resources</h5><p><a href="pricing-v2.html">Pricing</a></p><p><a href="pricing-v2.html#payg">Shop</a></p><p><a href="#how">How it works</a></p><p><a href="#">Docs & Support</a></p></div>
+    <div><h5>Apps</h5><p><a href="#">Windows</a></p><p><a href="#">Android</a></p><p><a href="#">iOS</a></p><p><a href="#">PC Hub</a></p></div>
+  </div>
+</footer>
+
+<script>
+  // Mega menu
+  const ddBtn=document.getElementById('ddBtn'), ddMenu=document.getElementById('ddMenu'), dd=document.getElementById('dd');
+  function openDD(){ddMenu.classList.add('open'); ddBtn.setAttribute('aria-expanded','true'); ddMenu.setAttribute('aria-hidden','false');}
+  function closeDD(){ddMenu.classList.remove('open'); ddBtn.setAttribute('aria-expanded','false'); ddMenu.setAttribute('aria-hidden','true');}
+  if(ddBtn){
+    ddBtn.addEventListener('click', ()=> ddMenu.classList.contains('open')?closeDD():openDD());
+    document.addEventListener('click', e=>{ if(!dd.contains(e.target)) closeDD(); });
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDD(); });
+  }
+  // Drawer
+  const burger=document.getElementById('burger'), drawer=document.getElementById('drawer');
+  if(burger){ burger.addEventListener('click', ()=>{ const open=drawer.classList.toggle('open'); burger.setAttribute('aria-expanded', open?'true':'false'); }); }
+</script>
+</body>
+</html>
