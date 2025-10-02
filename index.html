@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Amaan Malik — Tech Enthusiast & Product Builder</title>
+  <style>
+    :root {
+      --blue: #0d6efd;
+      --blue-hover: #0b5ed7;
+      --bg: #f6f7fb;
+      --text: #212529;
+      --muted: #6c757d;
+      --card: #ffffff;
+      --radius: 14px;
+      --shadow: 0 4px 16px rgba(0,0,0,0.06);
+      --maxw: 1000px;
+    }
+    body {
+      margin: 0; font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: #fff; border-bottom: 1px solid #e9ecef;
+      padding: 16px 24px; position: sticky; top: 0; z-index: 10;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    header h1 { margin:0; font-size:20px; color:var(--blue); }
+    nav a {
+      margin-left: 20px; color: var(--muted);
+      text-decoration: none; font-weight: 600;
+    }
+    nav a:hover { color: var(--blue); }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 40px 20px; }
+    h2 { margin-top: 50px; font-size: 28px; }
+    .hero {
+      text-align:center; padding:80px 20px;
+    }
+    .hero h2 {
+      font-size: 36px; margin:0 0 16px;
+    }
+    .hero p { color: var(--muted); font-size:18px; margin:0 0 24px; }
+    .btn {
+      display:inline-block; padding:12px 20px; margin:6px;
+      border-radius:999px; font-weight:600; text-decoration:none;
+      transition: all 0.2s ease;
+    }
+    .btn-primary { background:var(--blue); color:#fff; }
+    .btn-primary:hover { background:var(--blue-hover); }
+    .btn-outline { border:1px solid var(--blue); color:var(--blue); }
+    .btn-outline:hover { background:var(--blue); color:#fff; }
+    .card {
+      background: var(--card); border: 1px solid #dee2e6;
+      border-radius: var(--radius); padding: 24px; margin: 20px 0;
+      box-shadow: var(--shadow);
+    }
+    footer {
+      text-align:center; padding:30px 20px;
+      border-top:1px solid #e9ecef; margin-top:60px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Amaan Malik</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Tech Enthusiast & Product Builder</h2>
+      <p>Exploring software development, cloud systems, and new ideas — while documenting travel and projects.</p>
+      <a class="btn btn-primary" href="#projects">View Projects</a>
+      <a class="btn btn-outline" href="#contact">Get in Touch</a>
+    </section>
+
+    <div class="container">
+      <section id="about">
+        <h2>About</h2>
+        <div class="card">
+          <p>Hi, I’m Amaan — a tech and product enthusiast.  
+          I’ve worked across backend systems, cloud solutions, and creative tools.  
+          This site is my personal space to share projects, experiments, and travel photography.</p>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h2>Projects</h2>
+        <div class="card">
+          <h3>LoLa-PC</h3>
+          <p>Cloud PCs on any device — built for professionals, creators, and gamers.</p>
+          <a class="btn btn-primary" href="projects/lola/">Explore</a>
+        </div>
+        <div class="card">
+          <h3>Other Experiments</h3>
+          <p>Microservices, IoT, and side projects I tinker with.</p>
+          <a class="btn btn-outline" href="#">Coming soon</a>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <div class="card">
+          <p><strong>Email:</strong> <a href="mailto:amaan@example.com">amaan@example.com</a></p>
+          <p><strong>GitHub:</strong> <a href="https://github.com/amaanmalik" target="_blank">github.com/amaanmalik</a></p>
+          <p><strong>LinkedIn:</strong> <a href="#" target="_blank">linkedin.com/in/amaanmalik</a></p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Amaan Malik</p>
+  </footer>
+</body>
+</html>
