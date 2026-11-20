@@ -165,3 +165,6 @@ footer { color: var(--muted); border-top: 1px solid var(--line); padding-block: 
   .project-collection { grid-template-columns: 1fr; }
   [data-layout="index"] .project-collection { grid-column: 1; }
 }
+
+.project-links li:first-child { flex-basis: 100%; }
+.project-site { display: inline-block; margin-bottom: .35rem; color: var(--accent); }
